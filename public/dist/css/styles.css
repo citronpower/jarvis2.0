@@ -1,0 +1,79 @@
+body {
+	margin-top:20px;
+}
+
+h1{
+	color: #73AD21;
+}
+
+a{
+	color: black;
+	background-color:transparent ;
+	text-decoration: none;
+}
+
+a:hover{
+	background-color:transparent ;
+	text-decoration: none;
+}
+
+textarea{
+	height:200px;
+	min-height:200px;
+	max-height:200px;
+}
+
+.border{
+	border: solid black 1px;
+}
+
+.hand_hover:hover{
+	cursor: pointer;
+}
+
+.panel-heading{
+	height: 15px;
+	font-size: 10px;
+	padding-top:0px;
+	margin-right: 0px;
+}
+
+a.list-group-item.active, a.list-group-item.active:hover, a.list-group-item.active:focus{
+	background-color: #999999;
+	border-color: #999999;
+}
+
+#table-scroll {
+	height:400px;
+	overflow-y:auto;
+	overflow-x: hidden;
+	padding-left:45px;
+	padding-right:45px;
+	margin-top:10px;
+	margin-bottom: 10px;
+}
+
+@-webkit-keyframes blinker {
+	from { opacity: 1.0; }
+	to { opacity: 0.1; }
+}
+
+#img_sound{
+	-webkit-animation-name: blinker;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: cubic-bezier(1,0,0,1);
+	-webkit-animation-duration: 1.5s;
+}
+
+#leftblock{
+	background-color: #73AD21;
+	position: absolute;
+	top: 0;
+	left: 0;
+	text-align: center;
+	padding-top: 3em;
+	font-size: 24px;
+	font-weight: bold;
+	height: 100%;
+	max-width: 150px;
+}

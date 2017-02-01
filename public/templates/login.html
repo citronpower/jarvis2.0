@@ -1,0 +1,22 @@
+<!-- partials/home.html -->
+<div id="login">
+    <form name="form_login" class="form-horizontal">
+        <div class="form-group">
+            <label for="inputUsername" class="col-sm-3 control-label">Nom d'utilisateur</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="inputUsername" data-ng-model="username" data-ng-required="true" placeholder="Nom d'utilisateur">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPassword" class="col-sm-3 control-label">Mot de passe</label>
+            <div class="col-sm-9">
+                <input type="password" class="form-control" id="inputPassword" data-ng-model="password" data-ng-required="true" placeholder="Mot de passe">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+                <button type="submit" class="btn btn-success btn-lg btn-block" data-ng-click="login(username, password)">Se connecter</button>
+            </div>
+        </div>
+    </form>
+</div>

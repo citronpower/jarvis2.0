@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html data-ng-app="app" data-ng-init="init()" data-ng-controller="mainController">
+    <head>
+		<meta charset="UTF-8">
+
+		<link href="dist/css/bootstrap.css" rel="stylesheet">
+		<link href="dist/css/styles.css" rel="stylesheet">
+
+        <title>JARVIS</title>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.2/angular-sanitize.js"></script>
+		<script src="https://cdn.jsdelivr.net/ngstorage/0.3.6/ngStorage.min.js"></script>
+
+		<script src="dist/js/core-min.js"></script>
+		<script src="dist/js/enc-base64-min.js"></script>
+		<script src="dist/js/cipher-core-min.js"></script>
+		<script src="dist/js/aes-min.js"></script>
+
+		<script src="dist/js/bootstrap.js"></script>
+		<script src="dist/js/webspeech.js"></script>
+
+		<script src="app.js"></script>
+
+		<script src="directives/schrollBottom.js"></script>
+
+		<script src="services/userFactory.js"></script>
+		<script src="services/requestFactory.js"></script>
+		<script src="services/keywordFactory.js"></script>
+		<script src="services/sharedService.js"></script>
+
+		<script src="controllers/mainController.js"></script>
+		<script src="controllers/loginController.js"></script>
+		<script src="controllers/homeController.js"></script>
+		<script src="controllers/paramsController.js"></script>
+
+    </head>
+    <body>
+		<div class="row">
+			<div id="leftblock" class="col-xs-2"><p>J</p><p>A</p><p>R</p><p>V</p><p>I</p><p>S</p></div>
+			<div class="col-xs-offset-3 col-xs-8">
+				<div class="row "><div class="page-header"><a href="#/home" class="col-xs-9 "><h1>JARVIS</h1></a></div><div class="pull-right" data-ng-if="m_user.username!=''"><a href="#/params" class="col-xs-1"><span class="glyphicon glyphicon-cog "></span></a><a href="" data-ng-click="logout()" class="col-xs-1 "><span class="glyphicon glyphicon-log-out"></span></a></div></div>
+				<div class="ng-view"></div>
+			</div>
+		</div>
+    </body>
+</html>

@@ -1,0 +1,106 @@
+<!-- partials/home.html -->
+
+<div id="params" data-ng-init="init()">
+    <div class="row">
+        <div class="page-header">
+            <h3>Requests</h3>
+        </div>
+        <div class="col-md-5">
+            <div class="list-group">
+                <a href="" class="list-group-item hand_hover" data-ng-class="{active: request==s_request}" role="button" data-ng-click="select_request(request)" data-ng-repeat="request in requests">
+                    {{request.url}}<br />
+                    {{request.params}}
+                    <button class="btn btn-xs btn-danger pull-right" ng-click="delete_request(request)"><span class="glyphicon glyphicon-trash"></span></button>
+                </a>
+            </div>
+            <button type="button" class="btn btn-success btn-lg btn-block" data-ng-click="add_request()">Nouveau</button><br />
+        </div>
+        <div class="col-md-7">
+            <form name="form_request" class="form-horizontal">
+                <div class="form-group">
+                    <label for="inputParams" class="col-sm-3 control-label">Params</label>
+                    <div class="col-sm-9">
+                        <textarea type="text" class="form-control" id="inputParams" data-ng-model="s_request.params" data-ng-required="true" placeholder="Params"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputMethod" class="col-sm-3 control-label">Method</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="inputMethod" data-ng-model="s_request.method" data-ng-required="true" placeholder="Method">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputJson" class="col-sm-3 control-label">JSON</label>
+                    <div class="col-sm-2">
+                        <input type="checkbox" class="form-control " id="inputJson" data-ng-model="s_request.json" placeholder="JSON">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputUrl" class="col-sm-3 control-label">URL</label>
+                    <div class="col-sm-9">
+                        <input type="url" class="form-control" id="inputUrl" data-ng-model="s_request.url" data-ng-required="true" placeholder="URL">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputResponse" class="col-sm-3 control-label">Response</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="inputResponse" data-ng-model="s_request.response" placeholder="Response">
+                    </div>
+                </div>
+                <div >
+                    <table class="table col-sm-9">
+                        <thead>
+                            <tr>
+                                <td></td>
+                                <td><b>level</b></td>
+                                <td><b>keyword</b></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="keyword in keywords">
+                                <td>
+                                    <input type="checkbox" data-ng-model="keyword.selected" data-ng-checked="keyword.selected"  data-ng-change="check_keyword(keyword)">
+                                </td>
+                                <td>
+                                    <span data-ng-hide="keyword.selected">{{keyword.level}}</span>
+                                    <input type="number" max="3" min="0" class="form-control" data-ng-show="keyword.selected" data-ng-model="keyword.level" />
+                                </td>
+                                <td>
+                                    <span>{{keyword.word.toString() | limitTo: 50 }}{{keyword.word.toString().length > 50 ? '...' : ''}}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="form-group">
+                    <div class=" col-sm-12">
+                        <button type="submit" class="btn btn-success btn-lg btn-block" data-ng-click="update_request(s_request)">Enregistrer</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="page-header">
+            <h3>Keywords</h3>
+        </div>
+        <div>
+            <table class="table table-responsive">
+                <tbody>
+                    <tr data-ng-repeat="keyword in keywords">
+                        <td>
+                            <span data-ng-hide="keyword.update_mode">{{keyword.word}}</span>
+                            <input type="text" class="form-control" data-ng-show="keyword.update_mode" data-ng-model="keyword.word" />
+                        </td>
+                        <td>
+                            <button data-ng-hide="keyword.update_mode" class="btn btn-xs btn-warning" data-ng-click="update_keyword(keyword)"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button data-ng-show="keyword.update_mode" class="btn btn-xs btn-success" data-ng-click="update_keyword(keyword)"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+                            <button class="btn btn-xs btn-danger" data-ng-click="delete_keyword(keyword)"><span class="glyphicon glyphicon-trash"></span></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-success btn-lg btn-block" data-ng-click="add_keyword()">Nouveau</button>
+        </div>
+    </div>
+</div>

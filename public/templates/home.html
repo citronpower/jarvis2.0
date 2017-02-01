@@ -1,0 +1,42 @@
+<!-- partials/home.html -->
+<div id="home" data-ng-init="init()">
+    <div id="table-scroll" schroll-bottom="requests">
+        <div class="row" data-ng-repeat="request in requests">
+            <div class="col-xs-7 panel panel-info pull-left ">
+                <div class="panel-heading pull-right">{{request.date | date:'HH:mm dd.MM.yyyy'}}</div>
+                <div class="panel-body">
+                    {{request.order}}
+                </div>
+            </div>
+            <div class="col-xs-7 panel panel-success pull-right">
+                <div class="panel-heading pull-right">{{request.date | date:'HH:mm dd.MM.yyyy'}}</div>
+                <div class="panel-body">
+                    {{request.request.response || "INFO: la commande a été modifiée"}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <form class="">
+        <div class="input-group">
+            <input type="text" class="form-control" data-ng-model="message" placeholder="Ecrire à Jarvis...">
+            <span class="input-group-btn">
+               <button class="btn btn-default" type="submit" data-ng-click="send_message(message)"><span class="glyphicon glyphicon-send"></span></button>
+               <button class="btn btn-default" type="button" data-ng-click="listen()" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-earphone"></span></button>
+            </span>
+        </div>
+    </form>
+</div>
+
+<div class="modal" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" data-ng-click="close_modal()">&times;</button>
+                <h4 class="modal-title">J'écoute...</h4>
+            </div>
+            <div class="modal-body text-center">
+                <img id="img_sound" src="../dist/img/sound_medium.png" />
+            </div>
+        </div>
+    </div>
+</div>
