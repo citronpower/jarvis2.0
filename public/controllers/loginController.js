@@ -9,6 +9,7 @@ angular.module("app").controller("loginController", function ($scope, $location,
 
                 userFactory.login(user).then(function(result){
                         if(result){
+                                console.log(result);
                                 sharedService.setUser(result);
                                 $scope.m_user = sharedService.getUser();
                                 $location.path( '/home' );

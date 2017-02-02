@@ -15,7 +15,7 @@ router.post('/login', urlencodedParser, function (req, res, next) {
 
     var attributs = ["username", "password"];
     var values = [username, password];
-    userModel.get_by_x_y(attributs, values, function(result){
+    userModel.get_by_x_y(attributs, values, 20, function(result){
         req.session.user = result[0];
         res.send(result[0]);
     })
@@ -34,7 +34,7 @@ router.post('/get/id', urlencodedParser, function (req, res, next) {
 
     var attributs = ["_id"];
     var values = [id];
-    userModel.get_by_x_y(attributs, values, function(result){
+    userModel.get_by_x_y(attributs, values, 20, function(result){
         res.send(result[0]);
     })
 });

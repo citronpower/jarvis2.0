@@ -7,7 +7,8 @@ var requestSchema = new mongoose.Schema({
     method: {type : String, default:"post"},
     json: {type : Boolean, default:false},
     url: {type : String, required: true},
-    response: {type: String, default: "Oui chef!"}
+    response: {type: String, default: "Oui chef!"},
+    voice: {type: Boolean, default:false}
 });
 
 var RequestModel = mongoose.model('requests', requestSchema);
@@ -19,7 +20,6 @@ exports.add = function(request, done){
        if(err){
            done(false)
        }else{
-           nRequest.pop
            done(result)
        }
     });

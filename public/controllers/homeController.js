@@ -10,6 +10,7 @@ angular.module("app").controller("homeController", function ($scope, $location, 
 
         init_speaker();
         init_listener();
+        document.getElementById("inputMessage").focus();
 
         var id = {id: sharedService.getUser()._id};
 
@@ -48,11 +49,10 @@ angular.module("app").controller("homeController", function ($scope, $location, 
     $scope.send_message = function(message){
         var message = {message: message};
         requestFactory.get_message(message).then(function(result){
-            var response = "Je n'ai pas compris"
-            if(result){
-                response = result.response;
+            if(result.voice && speaker){
+                speaker.speak("fr", result.text);
             }
-            $scope.requests.push({date:new Date, order:message.message, request:{response:response}});
+            $scope.requests.push({date:new Date, order:message.message, response:result.text});
             $scope.message = "";
         });
     };

@@ -7,7 +7,7 @@ var userSchema = new mongoose.Schema({
     requests: [{
             date: {type: Date, required: true},
             order: {type: String, required: true},
-            request: {type: mongoose.Schema.Types.ObjectId, ref: 'requests'}
+            response: {type: String, required: true}
         }]
 });
 
@@ -26,7 +26,7 @@ exports.add = function(user, done){
     });
 };
 
-exports.get_by_x_y = function(attributs, values, done){
+exports.get_by_x_y = function(attributs, values, limit, done){
     var query = UserModel.find(null);
 
     if(attributs.length == values.length){
@@ -34,6 +34,8 @@ exports.get_by_x_y = function(attributs, values, done){
             query.where(attributs[i], values[i]);
         }
     }
+
+    query.slice("requests", -limit);
 
     query.populate("requests.request");
 

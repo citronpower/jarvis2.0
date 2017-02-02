@@ -42,7 +42,15 @@
 		<div class="row">
 			<div id="leftblock" class="col-xs-2"><p>J</p><p>A</p><p>R</p><p>V</p><p>I</p><p>S</p></div>
 			<div class="col-xs-offset-3 col-xs-8">
-				<div class="row "><div class="page-header"><a href="#/home" class="col-xs-9 "><h1>JARVIS</h1></a></div><div class="pull-right" data-ng-if="m_user.username!=''"><a href="#/params" class="col-xs-1"><span class="glyphicon glyphicon-cog "></span></a><a href="" data-ng-click="logout()" class="col-xs-1 "><span class="glyphicon glyphicon-log-out"></span></a></div></div>
+				<div class="row ">
+					<div class="page-header">
+						<a href="#/home" class="col-xs-9 "><h1>JARVIS</h1></a>
+					</div>
+					<div class="pull-right" data-ng-if="m_user.username!=''">
+						<a href="#/params" class="col-xs-1"><span class="glyphicon glyphicon-cog "></span></a>
+						<a href="" data-ng-click="logout()" class="col-xs-1 "><span class="glyphicon glyphicon-log-out"></span></a>
+					</div>
+				</div>
 				<div class="ng-view"></div>
 			</div>
 		</div>

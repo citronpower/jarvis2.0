@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
+var JSONPath = require('JSONPath');
 
 var router = express.Router();
 
@@ -19,19 +20,35 @@ router.get('/get/all', function (req, res, next) {
 
 router.post('/get/message', urlencodedParser, function(req, res, next){
     var message = req.body.message;
-    var words = message.toLowerCase().split(" ");
-    find_request(words, function(result){
+    var words = message.toLowerCase().replace(/[.,\/#!$%\^&\*;:?{}=\-_`~()]/g," ").split(" ");
 
-            if(result){
+    var f_words = [];
+    for(var i = 0; i<words.length; i++){
+        if(words[i]!=""){
+            f_words.push(words[i]);
+        }
+    }
+
+    find_request(f_words, function(result){
+
+        if(result){
                 apply_request(result, function(result2){
+
                     if(result2){
-                        save_request(req.session.user, message, result);
+                        prepare_response(result, result2, function(result3){
+                            if(result2 && req.session.user){
+                                save_request(req.session.user, message, result3);
+                            }
+                            var response = {text: result3, voice:result.voice};
+                            res.send(response);
+                        });
                     }
-                    res.send(result2);
                 });
-            }else{
-                res.send(result);
-            }
+        }else{
+            var response = {text: "Je n'ai pas compris", voice:true};
+            save_request(req.session.user, message, response.text);
+            res.send(response);
+        }
     });
 });
 
@@ -44,7 +61,6 @@ function find_request(words, done){
 
         for(var i = 0; i<requests.length; i++){
 
-            //var nbr_ok = 0;
             var level_found = [];
             var level_required = [];
             var keywords = requests[i].keywords;
@@ -56,7 +72,6 @@ function find_request(words, done){
 
                     for(var k = 0; k<words.length; k++){
                         if(keywords[j].keyword.word[l]==words[k]){
-                            //console.log(keywords[j]);
                             level_found.push(keywords[j].level);
                             ok_keyword = true;
                             break;
@@ -66,19 +81,11 @@ function find_request(words, done){
                         break;
                     }
                 }
-                /*if(ok_keyword){
-                    nbr_ok++;
-                }*/
             }
-            console.log(requests)
-            console.log("BEFORE")
-            console.log(level_required);
-            console.log(level_found);
 
             var ok = true;
             for(var x = 0; x<level_required.length; x++){
                 var index = level_found.indexOf(level_required[x]);
-                console.log(index);
                 if(index==-1){
                     ok = false;
                 }
@@ -106,17 +113,33 @@ function apply_request(req, done){
         if (err) {
             done(false);
         }
-        done(req);
+        done(body);
     });
 };
 
-function save_request(user, order, req){
+function prepare_response(req, body, done){
+    var response = req.response;
+    var f_step = req.response.split("[[");
+
+    for(var i = 0; i<f_step.length; i++){
+        var s_step = f_step[i].split("]]")[0];
+        if(s_step){
+            JSONPath({json: body, path: s_step, callback: function(rtr){
+                console.log(rtr);
+                response = response.replace("[["+s_step+"]]",rtr);
+            }});
+        }
+    }
+    done(response);
+}
+
+function save_request(user, order, response){
     userModel.update({_id:user._id}, {
         $push: {
             "requests": {
                 date: new Date(),
                 order: order,
-                request: req._id
+                response: response
             }
         }
     }, function(result){
