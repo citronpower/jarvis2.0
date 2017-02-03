@@ -3,12 +3,15 @@ var app = angular.module('app', ['ngRoute', 'ngStorage', 'ngAnimate', 'ngSanitiz
 app.config(['$routeProvider',
 	function($routeProvider) {
 		$routeProvider
-				.when("/home", {
-					templateUrl : "templates/home.html",
-					controller: "homeController"
-				}).when("/login", {
+				.when("/login", {
 					templateUrl : "templates/login.html",
 					controller: "loginController"
+				}).when("/home", {
+					templateUrl : "templates/home.html",
+					controller: "homeController"
+				}).when("/fullscreen", {
+					templateUrl : "templates/fullscreen.html",
+					controller: "fullscreenController"
 				}).when("/params", {
 					templateUrl : "templates/params.html",
 					controller: "paramsController"

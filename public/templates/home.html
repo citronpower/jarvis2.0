@@ -18,10 +18,10 @@
     </div>
     <form class="">
         <div class="input-group">
-            <input type="text" id="inputMessage" class="form-control" data-ng-model="message" placeholder="Ecrire à Jarvis...">
+            <input type="text" id="inputMessage" class="form-control input-lg" data-ng-model="message" placeholder="Ecrire à Jarvis...">
             <span class="input-group-btn">
-               <button class="btn btn-default" type="submit" data-ng-click="send_message(message)"><span class="glyphicon glyphicon-send"></span></button>
-               <button class="btn btn-default" type="button" data-ng-click="listen()" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-earphone"></span></button>
+               <button class="btn btn-default btn-lg" type="submit" data-ng-click="send_message(message)"><span class="glyphicon glyphicon-send"></span></button>
+               <button class="btn btn-default btn-lg" type="button" data-ng-click="listen()" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-earphone"></span></button>
             </span>
         </div>
     </form>
@@ -35,7 +35,7 @@
                 <h4 class="modal-title">J'écoute...</h4>
             </div>
             <div class="modal-body text-center">
-                <img id="img_sound" src="../dist/img/sound_medium.png" />
+                <img class="img_sound" src="../dist/img/sound_medium.png" />
             </div>
         </div>
     </div>

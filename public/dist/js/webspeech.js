@@ -36,7 +36,6 @@
         }
         catch(ex){
             throw "This browser does not have support for webspeech api";
-
         }
 
         if('SpeechRecognition' in window) {
@@ -58,15 +57,17 @@
                 }
             }
         };
-        this.listener.onstart = function() {
+        this.listener.onstart = function(event) {
             console.log('onstart');
         };
-        this.listener.onend  = function() {
+        this.listener.onend  = function(event) {
             console.log('onend');
+            //me.callBack(false);
             $('#myModal').modal('toggle');
         };
-        this.listener.onerror   = function() {
+        this.listener.onerror   = function(event) {
             console.log('onerror');
+            me.callBack("");
             $('#myModal').modal('toggle');
         };
         this.listener.onsoundstart = function(event) {
