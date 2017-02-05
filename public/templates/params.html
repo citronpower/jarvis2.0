@@ -20,7 +20,7 @@
                 <div class="form-group">
                     <label for="inputParams" class="col-sm-3 control-label">Params</label>
                     <div class="col-sm-9">
-                        <textarea type="text" class="form-control" id="inputParams" data-ng-model="s_request.params" data-ng-required="true" placeholder="Params"></textarea>
+                        <textarea type="text" class="form-control" id="inputParams" data-ng-model="s_request.params" placeholder="Params"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -69,7 +69,7 @@
                                 </td>
                                 <td>
                                     <span data-ng-hide="keyword.selected">{{keyword.level}}</span>
-                                    <input type="number" max="3" min="0" class="form-control" data-ng-show="keyword.selected" data-ng-model="keyword.level" />
+                                    <input type="number" max="9" min="0" class="form-control" data-ng-show="keyword.selected" data-ng-model="keyword.level" />
                                 </td>
                                 <td>
                                     <span>{{keyword.word.toString() | limitTo: 50 }}{{keyword.word.toString().length > 50 ? '...' : ''}}</span>

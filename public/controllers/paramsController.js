@@ -91,7 +91,7 @@ angular.module("app").controller("paramsController", function ($scope, $location
 
         $scope.check_keyword = function(keyword){
                 if(keyword.selected){
-                        keyword.level = 3;
+                        keyword.level = 0;
                 }else{
                         keyword.level = "";
                 }

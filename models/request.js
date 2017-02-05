@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var requestSchema = new mongoose.Schema({
     keywords: [{level: {type: Number, required:true},
                 keyword: {type: mongoose.Schema.Types.ObjectId, ref: 'keywords'}}],
-    params: {type : String, required: true},
+    params: {type : String},
     method: {type : String, default:"post"},
     json: {type : Boolean, default:false},
     url: {type : String, required: true},

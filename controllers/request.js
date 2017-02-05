@@ -20,7 +20,7 @@ router.get('/get/all', function (req, res, next) {
 
 router.post('/get/message', urlencodedParser, function(req, res, next){
     var message = req.body.message;
-    var words = message.toLowerCase().replace(/[.,\/#!$%\^&\*;:?{}=\-_`~()]/g," ").split(" ");
+    var words = message.toLowerCase().replace(/[.,\/#!$'%\^&\*;:?{}=\-_`~()]/g," ").split(" ");
 
     var f_words = [];
     for(var i = 0; i<words.length; i++){
@@ -32,18 +32,20 @@ router.post('/get/message', urlencodedParser, function(req, res, next){
     find_request(f_words, function(result){
 
         if(result){
-                apply_request(result, function(result2){
-
-                    if(result2){
+            //console.log(result);
+              apply_request(result, function(result2){
+                  //console.log(result2);
+                   if(result2){
                         prepare_response(result, result2, function(result3){
+                            //console.log(result3);
                             if(result2 && req.session.user){
                                 save_request(req.session.user, message, result3);
                             }
                             var response = {text: result3, voice:result.voice};
                             res.send(response);
                         });
-                    }
-                });
+                   }
+              });
         }else{
             var response = {text: "Je n'ai pas compris", voice:true};
             save_request(req.session.user, message, response.text);
@@ -56,8 +58,10 @@ router.post('/get/message', urlencodedParser, function(req, res, next){
 function find_request(words, done){
     var attributs = [];
     var values = [];
+
     requestModel.get_by_x_y(attributs, values, function(result){
         var requests = result;
+        var ok_requests = [];
 
         for(var i = 0; i<requests.length; i++){
 
@@ -91,15 +95,31 @@ function find_request(words, done){
                 }
             }
             if(ok){
-                return done(requests[i]);
+                ok_requests.push(requests[i]);
             }
         }
-        done(false);
+
+        if(ok_requests.length<1){
+            done(false);
+        }else{
+            var request_with_max_kw = ok_requests[0];
+
+            for(var i = 0; i<ok_requests.length; i++){
+                if(ok_requests[i].keywords.length>request_with_max_kw.keywords.length){
+                    request_with_max_kw = ok_requests[i];
+                }
+            }
+            done(request_with_max_kw);
+        }
     });
 };
 
 function apply_request(req, done){
-    var postData = JSON.parse(req.params);
+
+    var postData = "";
+    if(req.params){
+        postData = JSON.parse(req.params);
+    }
 
     var url = req.url;
     var options = {
@@ -125,13 +145,19 @@ function prepare_response(req, body, done){
         var s_step = f_step[i].split("]]")[0];
         if(s_step){
             JSONPath({json: body, path: s_step, callback: function(rtr){
-                console.log(rtr);
+                if(rtr===true){
+                    rtr = "Oui";
+                }else if(rtr===false){
+                    rtr = "Non";
+                }
+
                 response = response.replace("[["+s_step+"]]",rtr);
             }});
         }
     }
+
     done(response);
-}
+};
 
 function save_request(user, order, response){
     userModel.update({_id:user._id}, {
@@ -143,7 +169,7 @@ function save_request(user, order, response){
             }
         }
     }, function(result){
-        console.log("OK");
+        console.log("THE REQUEST HAS BEEN SAVED");
     });
 };
 
